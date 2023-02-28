@@ -4,6 +4,9 @@ import model.User;
 
 import java.sql.Connection;
 
+/***
+ * Data access object for the user object
+ */
 public class UserDAO {
 
     private final Connection conn;
@@ -18,6 +21,22 @@ public class UserDAO {
      * @param user User to add to the DB
      */
     void insert(User user) {
+
+    }
+
+    /***
+     * Retrieves a User object from the DB
+     * @return
+     */
+    User retrieve() {
+        User temp = null;
+        return temp;
+    }
+
+    /***
+     * Clears all Users from the DB
+     */
+    void clear() {
 
     }
 

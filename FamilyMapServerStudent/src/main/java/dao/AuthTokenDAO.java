@@ -3,6 +3,10 @@ package dao;
 import model.AuthToken;
 
 import java.sql.Connection;
+
+/***
+ * Data access object for the AuthToken object
+ */
 public class AuthTokenDAO {
 
     private final Connection conn;

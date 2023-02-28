@@ -1,5 +1,8 @@
 package model;
 
+/***
+ * Event object used to quantify events for input and retrieval from DB
+ */
 public class Event {
     String eventID;
     String associatedUsername;

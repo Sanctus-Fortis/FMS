@@ -5,6 +5,9 @@ import model.Event;
 import java.sql.Connection;
 import java.util.List;
 
+/***
+ * Data access object for the event object
+ */
 public class EventDAO {
     private final Connection conn;
 

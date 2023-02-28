@@ -1,8 +1,14 @@
 package dao;
 
 import model.Person;
+import model.User;
+import java.sql.*;
 
 import java.sql.Connection;
+
+/***
+ * Data access object for the person object
+ */
 public class PersonDAO {
 
     private final Connection conn;
@@ -17,6 +23,22 @@ public class PersonDAO {
      * @param person Person object to add
      */
     public void insert(Person person){
+
+    }
+
+    /***
+     * Returns a Person object from the DB
+     * @return
+     */
+    Person retrieve() {
+        Person temp = null;
+        return temp;
+    }
+
+    /***
+     * Clears all Persons from the DB
+     */
+    void clear() {
 
     }
 

@@ -1,5 +1,7 @@
 package model;
-
+/***
+ * User object used to quantify person for input and retrieval from DB
+ */
 public class User {
     String username;
     String password;

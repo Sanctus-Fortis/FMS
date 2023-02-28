@@ -1,5 +1,8 @@
 package model;
 
+/***
+ * AuthToken object used to validate sessions
+ */
 public class AuthToken {
     String authToken;
     String username;

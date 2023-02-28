@@ -1,4 +1,8 @@
 package model;
+
+/***
+ * Person object used to quantify person for input and retrieval from DB
+ */
 public class Person {
     String personID;
     String associatedUsername;

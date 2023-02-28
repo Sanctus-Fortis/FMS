@@ -1,6 +1,8 @@
 package Result;
-
-public class eventByIDSuccess {
+/***
+ * Result class for getting event by ID. Returns all the information of an event.
+ */
+public class EventByIDResult extends Result {
     String associatedUsername;
     String eventID;
     String personID;
