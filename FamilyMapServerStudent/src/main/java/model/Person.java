@@ -93,8 +93,7 @@ public class Person {
         return spouseID;
     }
 
-    public Person(String personID, String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
-        this.personID = personID;
+    public Person(String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
         this.associatedUsername = associatedUsername;
         this.firstName = firstName;
         this.lastName = lastName;

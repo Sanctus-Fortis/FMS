@@ -22,17 +22,53 @@ public class PersonDAO {
      * Adds a person to the DB
      * @param person Person object to add
      */
-    public void insert(Person person){
-
+    public void insert(Person person) throws DataAccessException {
+        //We can structure our string to be similar to a sql command, but if we insert question
+        //marks we can change them later with help from the statement
+        String sql = "INSERT INTO Persons (personID, associatedUsername, firstName, lastName, gender, fatherID, motherID, spouseID) VALUES(?,?,?,?,?,?,?,?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            //Using the statements built-in set(type) functions we can pick the question mark we want
+            //to fill in and give it a proper value. The first argument corresponds to the first
+            //question mark found in our sql String
+            stmt.setString(1, person.getPersonID());
+            stmt.setString(2, person.getAssociatedUsername());
+            stmt.setString(3, person.getFirstName());
+            stmt.setString(4, person.getLastName());
+            stmt.setString(5, person.getGender());
+            stmt.setString(6, person.getFatherID());
+            stmt.setString(7, person.getMotherID());
+            stmt.setString(8, person.getSpouseID());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while inserting an event into the database");
+        }
     }
 
     /***
      * Returns a Person object from the DB
      * @return
      */
-    Person retrieve() {
-        Person temp = null;
-        return temp;
+    public Person find(String userID) throws DataAccessException {
+        Person person;
+        ResultSet rs;
+        String sql = "SELECT * FROM Users WHERE userID = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userID);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                person = new Person(rs.getString("AssociatedUsername"),
+                        rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"),
+                        rs.getString("FatherID"), rs.getString("MotherID"), rs.getString("SpouseID"));
+                return person;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding an event in the database");
+        }
+
     }
 
     /***
@@ -48,16 +84,6 @@ public class PersonDAO {
      */
     public void delete(String personID) {
 
-    }
-
-    /***
-     * Searches for a person in the database by ID and returns a Person object
-     * @param personID ID to search for
-     * @return Person object with matching ID
-     */
-    Person find(String personID) {
-        Person person = null;
-        return person;
     }
 
 }
