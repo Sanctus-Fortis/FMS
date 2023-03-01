@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/addis/Desktop/FMS/FamilyMapServerStudent/fmsDB.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="1369"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,19:mainAuthorizationTokens"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">DROP TABLE IF exists AuthorizationTokens ;
+
+DROP TABLE IF exists Events;
+DROP TABLE IF exists Persons;
+DROP TABLE IF exists Users;
+
+CREATE TABLE Users (
+    username string primary key,
+
+
+
+    password string,
+
+
+
+    email string,
+
+
+
+    firstName string,
+    lastName string,
+    gender string,
+
+
+
+    userID string
+
+
+
+);
+
+
+
+
+
+
+
+CREATE TABLE Persons (
+    personID string primary key,
+    associatedUsername string,
+
+
+
+    firstName string,
+
+
+
+    lastName string,
+
+
+
+    gender string,
+
+
+
+    fatherID string,
+
+
+
+    motherID string,
+
+
+
+    spouseID string
+
+
+
+);
+
+
+
+
+
+
+
+CREATE TABLE Events (
+
+
+
+    eventID string primary key,
+
+
+
+    associatedUsername string,
+
+
+
+    personID string,
+
+
+
+    latitude float,
+
+
+
+    longitude float,
+
+
+
+    country string,
+
+
+
+    city string,
+
+
+
+    eventType string,
+
+
+
+    year int
+
+
+
+);
+
+
+
+
+
+
+
+CREATE TABLE AuthorizationTokens (
+
+
+
+    authtoken string primary key,
+
+
+
+    username string
+
+)</sql><current_tab id="0"/></tab_sql></sqlb_project>

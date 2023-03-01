@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /***
  * Person object used to quantify person for input and retrieval from DB
  */
@@ -93,7 +95,7 @@ public class Person {
         return spouseID;
     }
 
-    public Person(String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
+    public Person(String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, String personID) {
         this.associatedUsername = associatedUsername;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,6 +103,20 @@ public class Person {
         this.fatherID = fatherID;
         this.motherID = motherID;
         this.spouseID = spouseID;
+        this.personID = personID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(personID, person.personID) && Objects.equals(associatedUsername, person.associatedUsername) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(gender, person.gender) && Objects.equals(fatherID, person.fatherID) && Objects.equals(motherID, person.motherID) && Objects.equals(spouseID, person.spouseID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personID, associatedUsername, firstName, lastName, gender, fatherID, motherID, spouseID);
     }
 
     Person getPerson() {

@@ -25,7 +25,7 @@ public class UserDAO {
     public void insert(User user) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
-        String sql = "INSERT INTO Users (username, password, email, firstName, lastName, gender, personID) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Users (username, password, email, firstName, lastName, gender, userID) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             //Using the statements built-in set(type) functions we can pick the question mark we want
             //to fill in and give it a proper value. The first argument corresponds to the first
@@ -60,7 +60,7 @@ public class UserDAO {
             if (rs.next()) {
                 user = new User(rs.getString("Username"), rs.getString("Password"),
                         rs.getString("Email"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"));
+                        rs.getString("Gender"), rs.getString("userID"));
                 return user;
             } else {
                 return null;
@@ -121,6 +121,21 @@ public class UserDAO {
     User findUser(String username) {
         User user = null;
         return user;
+    }
+
+    int numUsers() throws DataAccessException {
+        String sql = "SELECT count(*) FROM Users";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return -1;
+            return rs.getInt(1);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException(
+                    "Error"
+            );
+        }
     }
 
 }

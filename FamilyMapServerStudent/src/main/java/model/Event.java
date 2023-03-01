@@ -1,125 +1,109 @@
 package model;
 
-/***
- * Event object used to quantify events for input and retrieval from DB
- */
+import java.util.Objects;
+
 public class Event {
-    String eventID;
-    String associatedUsername;
-    String personID;
-    float latitude;
-    float longitude;
-    String country;
-    String city;
-    String eventType;
-    Integer year;
+    private String eventID;
+    private String associatedUsername;
+    private String personID;
+    private Float latitude;
+    private Float longitude;
+    private String country;
+    private String city;
+    private String eventType;
+    private Integer year;
 
+    public Event(String eventID, String username, String personID, Float latitude, Float longitude,
+                 String country, String city, String eventType, Integer year) {
+        this.eventID = eventID;
+        this.associatedUsername = username;
+        this.personID = personID;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.country = country;
+        this.city = city;
+        this.eventType = eventType;
+        this.year = year;
+    }
 
-    // Returns evenID
     public String getEventID() {
         return eventID;
     }
 
-    // returns associatedUsername
-    public String getAssociatedUsername() {
-        return associatedUsername;
-    }
-
-    // Returns personID
-    public String getPersonID() {
-        return personID;
-    }
-
-    // Returns latitude
-    public float getLatitude() {
-        return latitude;
-    }
-
-    // Returns longitude
-    public float getLongitude() {
-        return longitude;
-    }
-
-    // Returns country
-    public String getCountry() {
-        return country;
-    }
-
-    // Returns city
-    public String getCity() {
-        return city;
-    }
-
-    // Returns eventType
-    public String getEventType() {
-        return eventType;
-    }
-
-    // Returns year
-    public Integer getYear() {
-        return year;
-    }
-
-    // Returns the entire Event object
-    Event getEvent() {
-        return this;
-    }
-
-    // Sets eventID
     public void setEventID(String eventID) {
         this.eventID = eventID;
     }
 
-    // Sets associatedUsername
+    public String getAssociatedUsername() {
+        return associatedUsername;
+    }
+
     public void setAssociatedUsername(String associatedUsername) {
         this.associatedUsername = associatedUsername;
     }
 
-    // Sets personID
+    public String getPersonID() {
+        return personID;
+    }
+
     public void setPersonID(String personID) {
         this.personID = personID;
     }
 
-    // Sets latitude
-    public void setLatitude(float latitude) {
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    // Sets longitude
-    public void setLongitude(float longitude) {
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
-    // Sets country
+    public String getCountry() {
+        return country;
+    }
+
     public void setCountry(String country) {
         this.country = country;
     }
 
-    // Sets city
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
 
-    // Sets eventType
+    public String getEventType() {
+        return eventType;
+    }
+
     public void setEventType(String eventType) {
         this.eventType = eventType;
     }
 
-    // Sets year
+    public Integer getYear() {
+        return year;
+    }
+
     public void setYear(Integer year) {
         this.year = year;
     }
 
-    public Event(String eventID, String associatedUsername, String personID, float latitude, float longitude, String country, String city, String eventType, Integer year) {
-        this.eventID = eventID;
-        this.associatedUsername = associatedUsername;
-        this.personID = personID;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.country = country;
-        this.city = city;
-        this.eventType = eventType;
-        this.year = year;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(eventID, event.eventID) && Objects.equals(associatedUsername, event.associatedUsername) && Objects.equals(personID, event.personID) && Objects.equals(latitude, event.latitude) && Objects.equals(longitude, event.longitude) && Objects.equals(country, event.country) && Objects.equals(city, event.city) && Objects.equals(eventType, event.eventType) && Objects.equals(year, event.year);
     }
 
 }

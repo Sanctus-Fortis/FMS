@@ -52,14 +52,14 @@ public class PersonDAO {
     public Person find(String userID) throws DataAccessException {
         Person person;
         ResultSet rs;
-        String sql = "SELECT * FROM Users WHERE userID = ?;";
+        String sql = "SELECT * FROM Persons WHERE personID = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, userID);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 person = new Person(rs.getString("AssociatedUsername"),
                         rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"),
-                        rs.getString("FatherID"), rs.getString("MotherID"), rs.getString("SpouseID"));
+                        rs.getString("FatherID"), rs.getString("MotherID"), rs.getString("SpouseID"), rs.getString("personID"));
                 return person;
             } else {
                 return null;
@@ -69,6 +69,21 @@ public class PersonDAO {
             throw new DataAccessException("Error encountered while finding an event in the database");
         }
 
+    }
+
+    int numPersons() throws DataAccessException {
+        String sql = "SELECT count(*) FROM Persons";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return -1;
+            return rs.getInt(1);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException(
+                    "Error"
+            );
+        }
     }
 
     /***

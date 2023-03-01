@@ -1,4 +1,7 @@
 package model;
+
+import java.util.Objects;
+
 /***
  * User object used to quantify person for input and retrieval from DB
  */
@@ -9,7 +12,7 @@ public class User {
     String firstName;
     String lastName;
     String gender;
-    String personID;
+    String userID;
 
     // Sets username
     public void setUsername(String username) {
@@ -43,7 +46,7 @@ public class User {
 
     // Sets personID
     public void setPersonID(String personID) {
-        this.personID = personID;
+        this.userID = personID;
     }
 
     // Returns username
@@ -78,7 +81,7 @@ public class User {
 
     // Returns personID
     public String getPersonID() {
-        return personID;
+        return userID;
     }
 
     // Returns this User object
@@ -86,12 +89,26 @@ public class User {
         return this;
     }
 
-    public User(String username, String password, String email, String firstName, String lastName, String gender) {
+    public User(String username, String password, String email, String firstName, String lastName, String gender, String userID) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
+        this.userID = userID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(gender, user.gender) && Objects.equals(userID, user.userID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, email, firstName, lastName, gender, userID);
     }
 }

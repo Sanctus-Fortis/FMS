@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +23,7 @@ public class PersonDAOTest {
         db = new Database();
         // and a new event with random data
         bestPerson = new Person("Sanctus", "Addison", "Rogers",
-                "m", null, null, null);
+                "m", null, null, null, "beans");
 
         // Here, we'll open the connection in preparation for the test case to use it
         Connection conn = db.getConnection();
@@ -70,5 +71,22 @@ public class PersonDAOTest {
         // the "()->", and the assertThrows assertion expects the code that ran to throw an
         // instance of the class in the first parameter, which in this case is a DataAccessException.
         assertThrows(DataAccessException.class, () -> pDao.insert(bestPerson));
+    }
+
+    @Test
+    public void findPass() throws DataAccessException {
+        pDao.insert(bestPerson);
+        assertEquals(bestPerson, pDao.find(bestPerson.getPersonID()));
+    }
+
+    @Test
+    public void findFail() throws DataAccessException {
+        assertNull(pDao.find("doesNotExist"));
+    }
+
+    @Test
+    public void clearPass() throws DataAccessException {
+        pDao.clear();
+        assertEquals(0, pDao.numPersons());
     }
 }

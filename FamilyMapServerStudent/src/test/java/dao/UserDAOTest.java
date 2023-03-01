@@ -23,7 +23,7 @@ public class UserDAOTest {
         db = new Database();
         // and a new event with random data
         bestUser = new User("Sanctus", "bucket", "addisonjrogers@tutanota.com",
-                "Addison", "Rogers", "m");
+                "Addison", "Rogers", "m", "beans");
 
         // Here, we'll open the connection in preparation for the test case to use it
         Connection conn = db.getConnection();
@@ -71,5 +71,22 @@ public class UserDAOTest {
         // the "()->", and the assertThrows assertion expects the code that ran to throw an
         // instance of the class in the first parameter, which in this case is a DataAccessException.
         assertThrows(DataAccessException.class, () -> uDao.insert(bestUser));
+    }
+
+    @Test
+    public void findPass() throws DataAccessException {
+        uDao.insert(bestUser);
+        assertEquals(bestUser, uDao.find(bestUser.getPersonID()));
+    }
+
+    @Test
+    public void findFail() throws DataAccessException {
+        assertNull(uDao.find("doesNotExist"));
+    }
+
+    @Test
+    public void clearPass() throws DataAccessException {
+        uDao.clear();
+        assertEquals(0, uDao.numUsers());
     }
 }
