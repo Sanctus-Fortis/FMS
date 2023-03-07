@@ -89,16 +89,29 @@ public class PersonDAO {
     /***
      * Clears all Persons from the DB
      */
-    void clear() {
-
+    void clear() throws DataAccessException {
+        String sql = "DELETE FROM Persons";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing the person table");
+        }
     }
 
     /***
      * Searched the DB by ID and removes a person with the matching ID
      * @param personID The ID of the person to be removed
      */
-    public void delete(String personID) {
-
+    public void delete(String personID) throws DataAccessException {
+        String sql = "DELETE FROM Persons WHERE personID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, personID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing the person table");
+        }
     }
 
 }

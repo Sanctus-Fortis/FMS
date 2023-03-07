@@ -89,4 +89,11 @@ public class UserDAOTest {
         uDao.clear();
         assertEquals(0, uDao.numUsers());
     }
+
+    @Test
+    public void deletePass() throws DataAccessException {
+        uDao.insert(bestUser);
+        uDao.delete(bestUser.getPersonID());
+        assertNull(uDao.find(bestUser.getPersonID()));
+    }
 }

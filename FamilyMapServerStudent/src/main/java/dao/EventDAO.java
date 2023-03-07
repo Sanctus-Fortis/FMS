@@ -57,7 +57,6 @@ public class EventDAO {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding an event in the database");
         }
-
     }
 
     public void clear() throws DataAccessException {
@@ -67,6 +66,17 @@ public class EventDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while clearing the event table");
+        }
+    }
+
+    public void delete(String eventID) throws DataAccessException {
+        String sql = "DELETE FROM Events WHERE eventID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, eventID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing the person table");
         }
     }
 }

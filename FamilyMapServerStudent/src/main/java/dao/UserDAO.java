@@ -85,6 +85,17 @@ public class UserDAO {
         }
     }
 
+    public void delete(String userID) throws DataAccessException {
+        String sql = "DELETE FROM Users WHERE userID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing the person table");
+        }
+    }
+
     /***
      * Retrieves a User object from the DB
      * @return

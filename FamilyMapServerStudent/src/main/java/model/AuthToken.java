@@ -13,17 +13,17 @@ public class AuthToken {
     }
 
     // Returns AuthToken object
-    AuthToken getToken() {
+    public AuthToken getToken() {
         return this;
     }
 
     // Returns authToken
-    String getAuthToken() {
+    public String getAuthToken() {
         return authToken;
     }
 
     // Returns username
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
