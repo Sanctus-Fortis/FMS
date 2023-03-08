@@ -4,6 +4,8 @@ import Service.ClearService;
 import Result.Result;
 import java.io.*;
 import java.net.*;
+
+import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 
 public class ClearHandler {
@@ -45,6 +47,7 @@ public class ClearHandler {
                         System.out.println(reqData);
 
                         // TODO: Claim a route based on the request data
+                        Gson gson = new Gson();
 
 						ClearRequest request = (ClearRequest)gson.fromJson(reqData, ClearRequest.class);
 
@@ -53,7 +56,7 @@ public class ClearHandler {
 
 						exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 						OutputStream resBody = exchange.getResponseBody();
-						gson.toJson(result, resBody);
+						String jsonStr = gson.toJson(result);
 						resBody.close();
 
                         // Start sending the HTTP response to the client, starting with
