@@ -1,8 +1,11 @@
 package Handlers;
+import Request.ClearRequest;
+import Service.ClearService;
+import Result.Result;
 import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
-import Service.clear;
+
 public class ClearHandler {
 
     public void handle(HttpExchange exchange) throws IOException {
@@ -43,17 +46,15 @@ public class ClearHandler {
 
                         // TODO: Claim a route based on the request data
 
-						/*
-						LoginRequest request = (LoginRequest)gson.fromJson(reqData, LoginRequest.class);
+						ClearRequest request = (ClearRequest)gson.fromJson(reqData, ClearRequest.class);
 
-						LoginService service = new LoginService();
-						LoginResult result = service.login(request);
+						ClearService service = new ClearService();
+						Result result = service.clear(request);
 
 						exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 						OutputStream resBody = exchange.getResponseBody();
 						gson.toJson(result, resBody);
 						resBody.close();
-						*/
 
                         // Start sending the HTTP response to the client, starting with
                         // the status code and any defined headers.

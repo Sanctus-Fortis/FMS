@@ -6,4 +6,8 @@ package Result;
 public class Result {
     boolean success;
     String message;
+
+    public Result(boolean success) {
+        this.success = success;
+    }
 }
