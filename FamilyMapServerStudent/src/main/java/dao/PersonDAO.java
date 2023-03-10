@@ -71,7 +71,7 @@ public class PersonDAO {
 
     }
 
-    int numPersons() throws DataAccessException {
+    public int numPersons() throws DataAccessException {
         String sql = "SELECT count(*) FROM Persons";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -89,7 +89,7 @@ public class PersonDAO {
     /***
      * Clears all Persons from the DB
      */
-    void clear() throws DataAccessException {
+    public void clear() throws DataAccessException {
         String sql = "DELETE FROM Persons";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();

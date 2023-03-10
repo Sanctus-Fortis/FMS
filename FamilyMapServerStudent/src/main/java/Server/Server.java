@@ -76,7 +76,8 @@ public class Server {
         // "/games/list" URL path, it will forward the request to ListGamesHandler
         // for processing.
 
-        // server.createContext("/Handlers/clear", new ClearHandler());
+        server.createContext("/clear", new ClearHandler());
+        server.createContext("/load", new LoadHandler());
 
         // Create and install the HTTP handler for the "/routes/claim" URL path.
         // When the HttpServer receives an HTTP request containing the

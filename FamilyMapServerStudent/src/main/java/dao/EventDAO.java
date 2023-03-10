@@ -79,4 +79,19 @@ public class EventDAO {
             throw new DataAccessException("Error encountered while clearing the person table");
         }
     }
+
+    public int numEvents() throws DataAccessException {
+        String sql = "SELECT count(*) FROM Events";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return -1;
+            return rs.getInt(1);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException(
+                    "Error"
+            );
+        }
+    }
 }

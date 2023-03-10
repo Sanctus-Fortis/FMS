@@ -91,7 +91,7 @@ public class DaddyHandler {
         }
     }
 
-    private String readString(InputStream is) throws IOException {
+    protected String readString(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         InputStreamReader sr = new InputStreamReader(is);
         char[] buf = new char[1024];

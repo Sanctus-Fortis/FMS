@@ -98,4 +98,19 @@ public class AuthTokenDAO {
         }
     }
 
+    public int numTokens() throws DataAccessException {
+        String sql = "SELECT count(*) FROM AuthorizationTokens";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return -1;
+            return rs.getInt(1);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException(
+                    "Error"
+            );
+        }
+    }
+
 }

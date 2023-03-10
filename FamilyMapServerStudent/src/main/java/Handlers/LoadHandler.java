@@ -1,21 +1,26 @@
 package Handlers;
-import Request.ClearRequest;
-import Service.ClearService;
+
+import Request.LoadRequest;
 import Result.Result;
-import java.io.*;
-import java.net.*;
-
+import Service.LoadService;
 import com.google.gson.Gson;
-import com.sun.net.httpserver.*;
-import model.AuthToken;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
-public class ClearHandler extends DaddyHandler implements HttpHandler {
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 
+public class LoadHandler extends DaddyHandler implements HttpHandler {
+
+    @Override
     public void handle(HttpExchange exchange) throws IOException {
         boolean success = false;
         try {
             if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-                ClearService serve = new ClearService();
+                LoadService serve = new LoadService();
 
                 // Extract the JSON string from the HTTP request body
 
@@ -29,13 +34,13 @@ public class ClearHandler extends DaddyHandler implements HttpHandler {
                 System.out.println(reqData);
                 Gson gson = new Gson();
 
-				ClearRequest request = (ClearRequest)gson.fromJson(reqData, ClearRequest.class);
+                LoadRequest request = (LoadRequest)gson.fromJson(reqData, LoadRequest.class);
 
-				Result result = serve.clear(request);
+                Result result = serve.load(request, gson);
 
-				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-				OutputStream resBody = exchange.getResponseBody();
-				String jsonStr = gson.toJson(result);
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                OutputStream resBody = exchange.getResponseBody();
+                String jsonStr = gson.toJson(result);
                 resBody.close();
 
                 // Start sending the HTTP response to the client, starting with
@@ -70,7 +75,15 @@ public class ClearHandler extends DaddyHandler implements HttpHandler {
             e.printStackTrace();
         }
     }
+
+    /*private String readString(InputStream is) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        InputStreamReader sr = new InputStreamReader(is);
+        char[] buf = new char[1024];
+        int len;
+        while ((len = sr.read(buf)) > 0) {
+            sb.append(buf, 0, len);
+        }
+        return sb.toString();
+    }*/
 }
-
-// login, register, fill, load, person, event and clear will all inherit from this
-

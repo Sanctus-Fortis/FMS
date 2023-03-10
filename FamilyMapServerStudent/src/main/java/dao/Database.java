@@ -30,10 +30,15 @@ public class Database {
     }
 
     public Connection getConnection() throws DataAccessException {
-        if (conn == null) {
-            return openConnection();
-        } else {
-            return conn;
+        try {
+            if (conn == null) {
+                return openConnection();
+            } else {
+                return conn;
+            }
+        }
+        catch (DataAccessException e) {
+            throw new DataAccessException("Unable to open connection to database");
         }
     }
 

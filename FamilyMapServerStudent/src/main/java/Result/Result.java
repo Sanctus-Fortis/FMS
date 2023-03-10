@@ -5,9 +5,21 @@ package Result;
  */
 public class Result {
     boolean success;
-    String message;
+    //String message;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     public Result(boolean success) {
         this.success = success;
+    }
+
+    public Result() {
+
     }
 }

@@ -3,7 +3,7 @@ import model.*;
 /***
  * Request class object for loading the history of a user
  */
-public class loadRequest {
+public class LoadRequest {
     User[] users;
     Person[] persons;
     Event[] events;

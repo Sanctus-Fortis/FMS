@@ -134,7 +134,7 @@ public class UserDAO {
         return user;
     }
 
-    int numUsers() throws DataAccessException {
+    public int numUsers() throws DataAccessException {
         String sql = "SELECT count(*) FROM Users";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
