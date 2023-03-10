@@ -1,9 +1,7 @@
 package Service;
 
-import Request.ClearRequest;
 import Result.Result;
 import dao.*;
-import model.AuthToken;
 
 import java.sql.Connection;
 
@@ -18,7 +16,7 @@ public class ClearService {
     /***
      * Clears the entire DB and leaves it sad and empty.
      */
-    public Result clear(ClearRequest request) {
+    public Result clear() {
         Database base = new Database();
         Connection conn;
         try {
@@ -39,25 +37,31 @@ public class ClearService {
         catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        Result temp = new Result(true);
+        Result result = new Result("", true);
         try {
-            if (cOne.numTokens() <= 0) {
-                temp.setSuccess(false);
+            if (cOne.numTokens() > 0) {
+                result.setSuccess(false);
             }
-            if (cTwo.numEvents() <= 0) {
-                temp.setSuccess(false);
+            if (cTwo.numEvents() > 0) {
+                result.setSuccess(false);
             }
-            if (cThree.numPersons() <= 0) {
-                temp.setSuccess(false);
+            if (cThree.numPersons() > 0) {
+                result.setSuccess(false);
             }
-            if (cFour.numUsers() <= 0) {
-                temp.setSuccess(false);
+            if (cFour.numUsers() > 0) {
+                result.setSuccess(false);
             }
             base.closeConnection(true);
+            if (result.getSuccess()) {
+                result.setMessage("Clear succeeded.");
+            }
+            else {
+                result.setMessage("Error: Unable to clear database. Check connection or get good.");
+            }
         }
         catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        return temp;
+        return result;
     }
 }

@@ -2,15 +2,13 @@ package Handlers;
 
 import Request.LoadRequest;
 import Result.Result;
+import Service.ClearService;
 import Service.LoadService;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 
 public class LoadHandler extends DaddyHandler implements HttpHandler {
@@ -36,12 +34,14 @@ public class LoadHandler extends DaddyHandler implements HttpHandler {
 
                 LoadRequest request = (LoadRequest)gson.fromJson(reqData, LoadRequest.class);
 
-                Result result = serve.load(request, gson);
+                ClearService preClear = new ClearService();
+                preClear.clear();
+                Result result = serve.load(request);
 
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                OutputStream resBody = exchange.getResponseBody();
-                String jsonStr = gson.toJson(result);
-                resBody.close();
+                Writer response = new OutputStreamWriter(exchange.getResponseBody());
+                gson.toJson(result, response);
+                response.close();
 
                 // Start sending the HTTP response to the client, starting with
                 // the status code and any defined headers.

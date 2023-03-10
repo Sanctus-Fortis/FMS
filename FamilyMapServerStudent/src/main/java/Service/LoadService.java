@@ -3,7 +3,6 @@ import Request.LoadRequest;
 import Result.Result;
 import model.*;
 import dao.*;
-import com.google.gson.Gson;
 
 import java.sql.Connection;
 
@@ -14,32 +13,45 @@ public class LoadService {
     /***
      * Loads user history from the DB and populates application
      */
-    public Result load(LoadRequest request, Gson input) {
+    public Result load(LoadRequest request) {
         Database base = new Database();
         Connection conn;
+        boolean success = true;
+        if (request.getUsers().length <= 0 && request.getEvents().length <= 0 && request.getPersons().length <= 0) {
+            success = false;
+        }
         try {
             conn = base.openConnection();
-        } catch (DataAccessException e) {
+
+            EventDAO cTwo = new EventDAO(conn);
+            PersonDAO cThree = new PersonDAO(conn);
+            UserDAO cFour = new UserDAO(conn);
+
+            for (Event event : request.getEvents()) {
+                cTwo.insert(event);
+            }
+            for (Person person : request.getPersons())  {
+                cThree.insert(person);
+            }
+            for (User user : request.getUsers()) {
+                cFour.insert(user);
+            }
+
+            base.closeConnection(true);
+        }
+        catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        EventDAO cTwo = new EventDAO(conn);
-        PersonDAO cThree = new PersonDAO(conn);
-        UserDAO cFour = new UserDAO(conn);
-        // Event[] events = new something;
-        // Person[] persons = new something;
-        // User[] users = new something;
-        /*
-        for each in event array {
-            cTwo.insert;
+        String message;
+        if (success) {
+            message = "Successfully added " + request.getUsers().length +
+                    " users, " + request.getEvents().length +
+                    " persons, and " + request.getPersons().length +
+                    " events to the database.";
         }
-        for each in person array  {
-            cThree.insert;
+        else {
+            message = "Error: Unable to load to database. Content empty.";
         }
-        for each in user array {
-            cFour.insert;
-        }
-        */
-
-        return new Result(false);
+        return new Result(message, success);
     }
 }

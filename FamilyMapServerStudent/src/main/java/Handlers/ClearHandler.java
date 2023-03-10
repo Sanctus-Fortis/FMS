@@ -1,5 +1,4 @@
 package Handlers;
-import Request.ClearRequest;
 import Service.ClearService;
 import Result.Result;
 import java.io.*;
@@ -7,7 +6,6 @@ import java.net.*;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
-import model.AuthToken;
 
 public class ClearHandler extends DaddyHandler implements HttpHandler {
 
@@ -16,8 +14,6 @@ public class ClearHandler extends DaddyHandler implements HttpHandler {
         try {
             if (exchange.getRequestMethod().toLowerCase().equals("post")) {
                 ClearService serve = new ClearService();
-
-                // Extract the JSON string from the HTTP request body
 
                 // Get the request body input stream
                 InputStream reqBody = exchange.getRequestBody();
@@ -29,21 +25,14 @@ public class ClearHandler extends DaddyHandler implements HttpHandler {
                 System.out.println(reqData);
                 Gson gson = new Gson();
 
-				ClearRequest request = (ClearRequest)gson.fromJson(reqData, ClearRequest.class);
-
-				Result result = serve.clear(request);
-
-				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-				OutputStream resBody = exchange.getResponseBody();
-				String jsonStr = gson.toJson(result);
-                resBody.close();
+				Result result = serve.clear();
 
                 // Start sending the HTTP response to the client, starting with
                 // the status code and any defined headers.
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                // We are not sending a response body, so close the response body
-                // output stream, indicating that the response is complete.
-                exchange.getResponseBody().close();
+                Writer response = new OutputStreamWriter(exchange.getResponseBody());
+                gson.toJson(result, response);
+                response.close();
                 success = true;
 
             }

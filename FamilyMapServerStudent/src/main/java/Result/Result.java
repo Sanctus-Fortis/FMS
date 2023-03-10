@@ -5,7 +5,8 @@ package Result;
  */
 public class Result {
     boolean success;
-    //String message;
+
+    String message;
 
     public boolean isSuccess() {
         return success;
@@ -15,11 +16,18 @@ public class Result {
         this.success = success;
     }
 
+    public void setMessage(String message) { this.message = message; }
+
     public Result(boolean success) {
         this.success = success;
     }
 
-    public Result() {
+    public Result(String message, boolean success) {
+        this.message = message;
+        this.success = success;
+    }
 
+    public boolean getSuccess() {
+        return success;
     }
 }
