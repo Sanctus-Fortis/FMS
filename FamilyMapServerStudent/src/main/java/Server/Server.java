@@ -78,7 +78,9 @@ public class Server {
 
         server.createContext("/clear", new ClearHandler());
         server.createContext("/load", new LoadHandler());
+        server.createContext("/fill/", new FillHandler()); // deliminator
 
+        // /fill/username/5
         // Create and install the HTTP handler for the "/routes/claim" URL path.
         // When the HttpServer receives an HTTP request containing the
         // "/routes/claim" URL path, it will forward the request to ClaimRouteHandler
